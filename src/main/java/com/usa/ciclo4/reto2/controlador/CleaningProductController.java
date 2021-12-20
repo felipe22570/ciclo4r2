@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/cleaningproduct")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET,
+        RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CleaningProductController {
        @Autowired
     private CleaningProductService accessoryService;
@@ -58,6 +60,16 @@ public class CleaningProductController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("reference") String reference) {
         return accessoryService.delete(reference);
-    } 
+    }
+    
+    @GetMapping("/price/{price}")
+    public List<CleaningProduct> getByPrice(@PathVariable("price") double price){
+        return accessoryService.getByPrice(price);
+    }
+
+    @GetMapping("/description/{description}")
+    public List<CleaningProduct> getByDescriptionContains(@PathVariable("description") String description){
+        return accessoryService.getByDescriptionContains(description);
+    }
     
 }

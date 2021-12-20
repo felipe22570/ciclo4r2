@@ -81,5 +81,11 @@ public class CleaningProductService {
         return aBoolean;
     }
     
-    
+    public List<CleaningProduct> getByPrice(double price){
+        return clotheRepository.getByPrice(price);
+    }
+
+    public List<CleaningProduct> getByDescriptionContains(String description){
+        return clotheRepository.getByDescriptionContains(description);
+    }
 }
